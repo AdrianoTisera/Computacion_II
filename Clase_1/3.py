@@ -31,10 +31,10 @@ def main():
         if args.p:
             print("El promedio de longitud de las palabras es ", str("{:.2f}".format(average_word_length(file_content))) + ".")
 
-    except Exception as e:
-        with open('error.log', 'w') as f:
-            f.write(str(e))
-        print("Error: ", e)
+    except FileNotFoundError:
+        with open("errors.log". "a") as error_file:
+            error_file.write("No se encontró el archivo especificado.")
+        sys.stderr.write("No se encontró el archivo especificado.")
         sys.exit(1)
 
 if __name__ == '__main__':
