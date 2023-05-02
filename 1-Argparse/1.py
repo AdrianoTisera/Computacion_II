@@ -1,5 +1,8 @@
 import argparse
 
+class NotValidNumberError(Exception):
+    pass
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('-n', type=int)
@@ -12,7 +15,7 @@ def main():
                 odds.append(i)
 
     else:
-        print('n debe ser positivo.')
+        raise NotValidNumberError("El número debe ser mayor a 0.")
 
     print("Los números impares son: ", odds)
 
