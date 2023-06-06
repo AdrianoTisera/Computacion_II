@@ -1,3 +1,5 @@
+# Alumnos: TISERA, Adriano. DAVARA, Federico.
+
 import threading
 import math
 
