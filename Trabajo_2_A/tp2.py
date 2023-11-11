@@ -4,6 +4,7 @@ import socket
 from PIL import Image
 from io import BytesIO
 import multiprocessing
+import sys
 
 def grayscale_image(image_data):
     with Image.open(BytesIO(image_data)) as img:
@@ -30,6 +31,8 @@ class CustomHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
             self.send_header('Content-type', 'text/plain')
             self.end_headers()
             self.wfile.write(b'Error: El archivo no es una imagen.')
+        finally:
+            sys.exit(0)
 
 def run(server_class=http.server.HTTPServer, handler_class=CustomHTTPRequestHandler, port=8000):
     server_address = ('', port)
