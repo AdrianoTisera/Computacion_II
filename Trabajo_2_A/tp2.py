@@ -4,7 +4,6 @@ import socket
 from PIL import Image
 from io import BytesIO
 import multiprocessing
-import magic
 
 def grayscale_image(image_data):
     with Image.open(BytesIO(image_data)) as img:
@@ -18,11 +17,7 @@ class CustomHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
         content_length = int(self.headers['Content-Length'])
         post_data = self.rfile.read(content_length)
         
-        # Use python-magic to detect the file type
-        mime = magic.Magic()
-        file_type = mime.from_buffer(post_data)
-        
-        if file_type.startswith('image'):
+        try:
             pool = multiprocessing.Pool(processes=1)
             result = pool.apply_async(grayscale_image, [post_data])
             gray_img_data = result.get()
@@ -30,7 +25,7 @@ class CustomHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
             self.send_header('Content-type', 'image/jpeg')
             self.end_headers()
             self.wfile.write(gray_img_data)
-        else:
+        except:
             self.send_response(400)
             self.send_header('Content-type', 'text/plain')
             self.end_headers()
