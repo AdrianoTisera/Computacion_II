@@ -22,6 +22,11 @@ curl -X POST -H "Content-Type: image/jpeg" --data-binary @test.png http://localh
 ```bash
 curl -X POST -H "Content-Type: image/jpeg" --data-binary @test.png http://localhost:8000 > output.png
 ```
+Por otra parte, si quisiera visualizarlo directamente en un visor de imágenes sin guardar el archivo, podría utilizar el siguiente comando:
+```bash
+curl -X POST -H "Content-Type: image/jpeg" --data-binary @test.png http://localhost:8000 | imv -
+```
+En este caso utilizo el visor `imv`, y el guión al final indica que debe leer desde la salida estándar. Debería funcionar con cualquier otro visor.
 ### Resultados
 | Input   | Output    |
 |--------------- | --------------- |
